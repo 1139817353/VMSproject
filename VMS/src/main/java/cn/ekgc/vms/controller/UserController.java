@@ -1,6 +1,6 @@
 package cn.ekgc.vms.controller;
 
-import cn.ekgc.vms.controller.base.BaseController;
+import cn.ekgc.vms.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

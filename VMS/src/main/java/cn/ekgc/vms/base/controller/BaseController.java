@@ -1,4 +1,4 @@
-package cn.ekgc.vms.controller.base;
+package cn.ekgc.vms.base.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
