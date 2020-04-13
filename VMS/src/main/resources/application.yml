@@ -22,6 +22,7 @@ spring:
   thymeleaf:
     encoding: utf-8
     prefix: classpath:/view/
+    suffix: .html
     ### MyBatis  相关配置信息
 mybatis:
   mapper-locations: classpath:/mapper/*.Mapper.xml
