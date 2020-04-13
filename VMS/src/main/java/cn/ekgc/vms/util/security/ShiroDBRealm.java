@@ -20,7 +20,9 @@ public class ShiroDBRealm extends AuthorizingRealm {
  */
    @Override
    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection){
-   	  return null;
+	   System.out.println("调用ShiroDBRealm2的doGetAutheenticationInfo进行系统登录…" + new Date());
+
+	   return null;
    }
 
 	/**

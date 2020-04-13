@@ -5,7 +5,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.apache.shiro.mgt.SecurityManager;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class ShiroConfiguration {
 		return new ShiroDBRealm();
 	}
 	@Bean
-	public DefaultWebSecurityManager securityManager() {
+	public SecurityManager securityManager() {
 		// 创建对应的 Shiro 核心对象 SecurityManager
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		// 设置当需要登录认证的时候，使用自定义的 ShiroDBRealm 进行
