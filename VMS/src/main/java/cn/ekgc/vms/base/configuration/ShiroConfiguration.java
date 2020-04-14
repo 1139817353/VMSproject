@@ -50,10 +50,11 @@ public class ShiroConfiguration {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		// 配置不需要登录的请求
 		// 静态资源
-		filterChainDefinitionMap.put("/css/*", "anon");
-		filterChainDefinitionMap.put("/js/*", "anon");
-		filterChainDefinitionMap.put("/img/*", "anon");
-		filterChainDefinitionMap.put("/fontawsome/*", "anon");
+		filterChainDefinitionMap.put("/css/**", "anon");
+		filterChainDefinitionMap.put("/js/**", "anon");
+		filterChainDefinitionMap.put("/img/**", "anon");
+		filterChainDefinitionMap.put("/fontawsome/**", "anon");
+		filterChainDefinitionMap.put("/favicon.ico", "anon");
 		// 配置退出规则
 		filterChainDefinitionMap.put("/user/logout", "logout");
 		// 配置需要进行登录的规则

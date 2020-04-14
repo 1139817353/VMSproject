@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ekgc.vms.dao.MenuDao">
+	<select id="findListByQuery" parameterType="java.util.Map" resultMap="menuMap">
+		  SELECT
+			sm.id,
+			sm.parent_id,
+			sm.text,
+			sm.url,
+			sm.icon,
+			sm.status
+		FROM
+			sys_menu sm LEFT JOIN sys_menu parent ON sm.parent_id=parent.id
+			JOIN sys_role_menu srm ON sm.id=srm.menu_id
+			<where>
+				<trim suffixOverrides="and">
+					<if test="roleId != null">srm.role_id=#{roleId} and</if>
+					<choose>
+						<when test="parentId != null">sm.parent_id=#{parentId} and</when>
+						<otherwise>sm.parent_id is null and</otherwise>
+					</choose>
+					<if test="status != null">sm.status=#{status} and</if>
+
+				</trim>
+			</where>
+
+	</select>
+	<resultMap id="menuMap" type="Menu">
+		<id property="id" javaType="java.lang.Long" column="id"/>
+		<result property="text" javaType="java.lang.String" column="text"/>
+		<result property="url" javaType="java.lang.String" column="url"/>
+		<result property="icon" javaType="java.lang.String" column="icon"/>
+		<result property="status" javaType="java.lang.Integer" column="status"/>
+		<result property="createTime" javaType="java.util.Date" column="create_time"/>
+		<result property="updateTime" javaType="java.util.Date" column="update_time"/>
+		<association property="parent" javaType="Menu">
+			<id property="id" javaType="java.lang.Long" column="parent_id"/>
+		</association>
+		<association property="createUser" javaType="User">
+			<id property="id" javaType="java.lang.Long" column="create_user"/>
+		</association>
+		<association property="updateUser" javaType="User">
+			<id property="id" javaType="java.lang.Long" column="update_user"/>
+		</association>
+	</resultMap>
+</mapper>

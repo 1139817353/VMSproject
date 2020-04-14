@@ -17,7 +17,7 @@ public class Menu implements Serializable {
 	private String text;
 	private String url;
 	private String icon;
-	private String status;
+	private Integer status;
 	private User createUser;
 	private Date createTime;
 	private User updateUser;
@@ -65,11 +65,11 @@ public class Menu implements Serializable {
 		this.icon = icon;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
