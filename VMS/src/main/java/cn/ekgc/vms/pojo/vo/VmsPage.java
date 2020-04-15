@@ -1,6 +1,7 @@
 package cn.ekgc.vms.pojo.vo;
 
 import cn.ekgc.vms.util.ConstantUtil;
+import com.github.pagehelper.PageInfo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,10 +17,10 @@ public class VmsPage<E> implements Serializable {
 	private  List<E> list;         //分页列表
 	private  Long totalCount;      //总数量
 	private  Long totalPage;       //总页数
-
+    private  Integer draw;          //用于DataTable 插件
 	public VmsPage() {}
 
-	public VmsPage(Integer pageNum, Integer pageSize) {
+	public VmsPage(Integer pageNum, Integer pageSize,Integer draw) {
          if (pageNum != null && pageNum > 0 ){
          	this.pageNum = pageNum;
          }else {
@@ -30,6 +31,7 @@ public class VmsPage<E> implements Serializable {
          }else {
          	this.pageSize = ConstantUtil.PAGE_SIZE;
          }
+         this.draw = draw;
 	}
 
 	public Integer getPageNum() {
@@ -70,5 +72,23 @@ public class VmsPage<E> implements Serializable {
 
 	public void setTotalPage(Long totalPage) {
 		this.totalPage = totalPage;
+	}
+
+	public Integer getDraw() {
+		return draw;
+	}
+
+	public void setDraw(Integer draw) {
+		this.draw = draw;
+	}
+
+	/**
+	 * <b>将PageHelper信息转换到对象中</b>
+	 * @param page
+	 */
+	public void copyFromPageInfo(PageInfo<E> page) {
+	this.list = page.getList();
+	this.totalPage = (long) page.getPages();
+	this.totalCount = page.getTotal();
 	}
 }

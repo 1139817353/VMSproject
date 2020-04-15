@@ -24,7 +24,7 @@
 
 				</trim>
 			</where>
-
+		    order by sm.create_time asc
 	</select>
 	<resultMap id="menuMap" type="Menu">
 		<id property="id" javaType="java.lang.Long" column="id"/>

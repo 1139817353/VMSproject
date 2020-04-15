@@ -87,6 +87,13 @@
     </dependency>
     <!-- 配置使用Shiro 作为安全认证框架 -->
 
+    <!-- 为了能让Spring Boot 项目能够进行热部署，需要增加插件 devtools-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+    <!-- 为了能让Spring Boot 项目能够进行热部署，需要增加插件 devtools-->
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

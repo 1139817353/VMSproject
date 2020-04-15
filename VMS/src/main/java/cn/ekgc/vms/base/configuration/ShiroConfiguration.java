@@ -53,7 +53,7 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
 		filterChainDefinitionMap.put("/img/**", "anon");
-		filterChainDefinitionMap.put("/fontawsome/**", "anon");
+		filterChainDefinitionMap.put("/fonts/**", "anon");
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
 		// 配置退出规则
 		filterChainDefinitionMap.put("/user/logout", "logout");
