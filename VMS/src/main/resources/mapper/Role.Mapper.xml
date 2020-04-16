@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ekgc.vms.dao.RoleDao">
+	<select id="findListByQuery" parameterType="Role" resultMap="roleMap">
+		select
+		   sr.id,
+		   sr.name,
+		   sr.code,
+		   sr.status,
+		   sr.create_user,
+		   sr.create_time,
+		   sr.update_user,
+		   sr.update_time
+		 from
+		    sys_role sr
+		 <where>
+			 <trim suffixOverrides="and">
+				 <if test="id != null">sr.id=#{id} and </if>
+				 <if test="name !=null">sr.name like concat('%',#{name},'%') and </if>
+			 </trim>
+		 </where>
+		 order by sr.create_time asc
+	</select>
+
+	<insert id="save" parameterType="Role">
+		insert into sys_role(
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name !=null">name,</if>
+			<if test="code != null">code,</if>
+			<if test="status != null">status,</if>
+		</trim>
+		)values (
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="code != null">#{code},</if>
+			<if test="status != null">#{status},</if>
+		</trim>
+		)
+	</insert>
+
+	<update id="update" parameterType="Role">
+		update sys_role
+		<set>
+			<trim suffixOverrides="and">
+				<if test="name != null">name=#{name}, </if>
+				<if test="code != null">code=#{code}, </if>
+				<if test="status != null">status=#{status}, </if>
+			</trim>
+		</set>
+		<where>
+			<trim suffixOverrides="and">
+				<if test="id != null">id=#{id} and </if>
+			</trim>
+		</where>
+	</update>
+
+	<resultMap id="roleMap" type="Role">
+		<id property="id" javaType="java.lang.Long" column="id"/>
+		<result property="name" javaType="java.lang.String" column="name"/>
+		<result property="code" javaType="java.lang.String" column="code"/>
+		<result property="status" javaType="java.lang.Integer" column="status"/>
+		<result property="createTime" javaType="java.util.Date" column="create_time"/>
+		<result property="updateTime" javaType="java.util.Date" column="update_time"/>
+		<association property="createUser" javaType="User">
+			<id property="id" javaType="java.lang.Long" column="create_user"/>
+		</association>
+		<association property="updateUser" javaType="User">
+			<id property="id" javaType="java.lang.Long" column="update_user"/>
+		</association>
+	</resultMap>
+</mapper>

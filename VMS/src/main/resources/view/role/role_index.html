@@ -13,29 +13,29 @@
 	<script type="text/javascript">
 		$(function () {
 			$("#mytable").DataTable({
-             //取消本地分页
-				"paging":false,
-			//关闭搜索引擎
-			"searching":false,
-			//取消页面排序
-			"ordering":false,
-			//列表获得采取异步方式进行
-			"serverSide":true,
-				//设定服务器请求地址
-				//获取表格地址
-				ajax:{
-					//请求地址
-					url:"/user/page",
-					//请求方式
-					type:"post",
-					//设定在请求列表的时候，所需要携带的请求参数
-					data:function (d) {
-						//获得对应的设置信息
+				// 取消本地分页
+				"paging": false,
+				// 关闭搜索功能
+				"searching": false,
+				// 取消页面排序
+				"ordering": false,
+				// 列表获得采取异步方式进行
+				"serverSide": true,
+				// 设定服务器请求地址
+				// 获取表格地址
+				ajax: {
+					// 请求地址
+					url: "/role/page",
+					// 请求方式
+					type: "post",
+					// 设定在请求列表的时候，所需要携带的请求参数
+					data: function(d) {
+						// 获得对应的设置信息
 						var tableSetings = $("#mytable").dataTable().fnSettings();
-						//删除多余请求参数
-						for (var key in d){
-							if (key.indexOf("columns")==0||key.indexOf("order")==0||key.indexOf("search")==0){
-								//以Colimns开头的参数删除
+						// 删除多余请求参数
+						for(var key in d) {
+							if(key.indexOf("columns")==0||key.indexOf("order")==0||key.indexOf("search")==0){
+								//以columns开头的参数删除
 								delete d[key];
 							}
 						}
@@ -43,20 +43,19 @@
 						var params = {
 							// 获得表格对象后，
 							// 系统当前页码_iDisplayStart，默认从0开始
-							"pageNum":tableSetings._iDisplayStart + 1,
-							//每页显示数量
-							"pageSize":tableSetings._iDisplayLength
+							"pageNum": tableSetings._iDisplayStart + 1,
+							// 每页显示数量
+							"pageSize": tableSetings._iDisplayLength
 						}
 						// 将新增的查询数据扩展到请求参数上
-						$.extend(d,params);
-						//给d扩展参数
+						$.extend(d, params); //给d扩展参数
 					},
-					//设定回传数据格式为JSON
-					dataType:"json",
-					//过滤数据
-					dataFilter:function (data){
+					// 设定回传的数据格式为JSON
+					dataType: "json",
+					// 过滤数据
+					dataFilter: function(data) {
 						data = JSON.parse(data);
-                        var returnData = {};
+						var returnData = {};
 						returnData.draw = data.draw;
 						returnData.recordsTotal = data.totalPage;
 						returnData.recordsFiltered = data.totalPage;
@@ -78,64 +77,46 @@
 					targets: 1,
 					data: function (row, type, val, meta) {
 						// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
-						return row.username;
+						return row.name;
 					}
-
-				},{
+				}, {
 					targets: 2,
-					data:function (row,type,val,meta) {
-                      return row.cellphone;
+					data: function (row, type, val, meta) {
+						// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
+						return row.code;
 					}
-				},{
+				}, {
 					targets: 3,
-					data:function (row,type,val,meta) {
-						if(row.gender == "1"){
-							return "男";
-						}else{
-							return "女";
-						}
-					}
-				},{
-					targets: 4,
-					data:function (row,type,val,meta) {
-						return row.role.name;
-					}
-				},{
-					targets: 5,
-					data:function (row,type,val,meta) {
-						return row.idCard;
-					}
-				},{
-					targets: 6,
-					data:function (row,type,val,meta) {
-						return row.email;
-					}
-				},{
-					targets: 7,
-					data:function (row,type,val,meta) {
+					data: function (row, type, val, meta) {
+						// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
 						var status = "";
-						if (row.status == "1"){
+						if (row.status == 1) {
+							// 启用状态
 							status = "<a href='#' class='btn btn-success btn-xs'><i class='fa fa-thumbs-o-up'></i>&nbsp;启用</a>";
-						}else {
+						} else {
+							// 禁用状态
 							status = "<a href='#' class='btn btn-danger btn-xs'><i class='fa fa-thumbs-o-down'></i>&nbsp;禁用</a>";
 						}
 						return status;
 					}
-				},{
-					targets: 8,
-					data:function (row,type,val,meta) {
-						//按钮一：修改
+				}, {
+					targets: 4,
+					data: function (row, type, val, meta) {
+						// 在序号位置，row就代表JSON中list所对应的一个位置的数据对象
+						// 按钮一：修改
 						var updateBtn = "<a href='#' class='btn btn-warning btn-xs'><i class='fa fa-wrench'></i>&nbsp;修改</a>";
-						//按钮二：启用/禁用
+						// 按钮二：授权
+						var authBtn = "<a href='javascript:openAuthModal(" + row.id + ")' class='btn btn-info btn-xs'><i class='fa fa-key'></i>&nbsp;授权</a>";
+						// 按钮三；启用/禁用
 						var statusBtn = "";
-						if (row.status == 1){
-							//此为启用状态，所以设置禁用
+						if (row.status == 1) {
+							// 此时为启用状态，那么就是禁用按钮
 							statusBtn = "<a href='#' class='btn btn-danger btn-xs'><i class='fa fa-toggle-off'></i>&nbsp;禁用</a>";
-						}else{
-							statusBtn = "<a herf='#' class='btn btn-success btn-xs'><i class='fa fa-toggle-on'></i>&nbsp;启用</a>";
+						} else {
+							// 此时为禁用，那么按钮就是启用
+							statusBtn = "<a href='#' class='btn btn-success btn-xs'><i class='fa fa-toggle-on'></i>&nbsp;启用</a>";
 						}
-                        return updateBtn + "&nbsp;" +statusBtn;
-
+						return updateBtn + "&nbsp;" + authBtn + "&nbsp;" + statusBtn;
 					}
 				}],
 				// 显示语言
@@ -165,20 +146,30 @@
 				}
 			});
 		})
+
+		function openAuthModal(id) {
+			var url = "/role/auth?id=" + id;
+			parent.openModal("角色授权", url, 600, 800);
+		}
 	</script>
-<body>
+</head>
+<body style="padding: 15px;">
+<div class="row">
+	<div class="col-md-12">
+		<a href="#" class="btn btn-success">
+			<i class="fa fa-user-plus"></i>
+			添加角色
+		</a>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-12">
 		<table id="mytable" class="table table-hover">
 			<thead>
 			<tr>
 				<th>序号</th>
-				<th>姓名</th>
-				<th>联系电话</th>
-				<th>性别</th>
-				<th>职能</th>
-				<th>身份证号码</th>
-				<th>电子邮件</th>
+				<th>角色名称</th>
+				<th>角色编号</th>
 				<th>状态</th>
 				<th>操作</th>
 			</tr>

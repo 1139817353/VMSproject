@@ -1,6 +1,7 @@
 package cn.ekgc.vms.service.impl;
 
 import cn.ekgc.vms.dao.UserDao;
+import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.UserService;
@@ -55,4 +56,6 @@ public class UserServiceimpl implements UserService {
 
 
 	}
+
+
 }

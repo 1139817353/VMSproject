@@ -24,6 +24,18 @@
 			var iframe = "<iframe src='" + url + "' style='width: 100%; height: " + height + "px; border: 0px;' scrolling='true'></iframe>";
 			$("#content").html(iframe);
 		}
+		// 打开模态框
+		function openModal(title, url, width, height) {
+			// 修改显示标题
+			$("#modalTitle").html(title);
+			var iframe = "<iframe src='" + url + "' style='width: " + width + "px; height: " + height + "px; border: 0px;' scrolling='true'></iframe>";
+			// 进行主题显示
+			$("#modalBody").html(iframe)
+			// 打开模态框
+			$("#myModal").modal({
+				keyboard: false
+			});
+		}
 	</script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -99,6 +111,22 @@
 			<b>Version</b> 1.0.0
 		</div>
 	</footer>
+</div>
+<!-- 模态框 -->
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- 模态框头部 -->
+			<div class="modal-header">
+				<h4 id="modalTitle" class="modal-title"></h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- 模态框主体 -->
+			<div id="modalBody" class="modal-body"></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

@@ -66,6 +66,6 @@ public class UserController extends BaseController {
 	    VmsPage<User> vmsPage = new VmsPage<User>(pageNum,pageSize,draw);
 	    //使用service进行分页查询
 	    vmsPage = userService.getUserListByPage(vmsPage);
-        return null;
+        return vmsPage;
 	}
 }

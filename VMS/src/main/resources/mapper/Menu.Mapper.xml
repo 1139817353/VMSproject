@@ -3,29 +3,30 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ekgc.vms.dao.MenuDao">
 	<select id="findListByQuery" parameterType="java.util.Map" resultMap="menuMap">
-		  SELECT
-			sm.id,
-			sm.parent_id,
-			sm.text,
-			sm.url,
-			sm.icon,
-			sm.status
-		FROM
-			sys_menu sm LEFT JOIN sys_menu parent ON sm.parent_id=parent.id
-			JOIN sys_role_menu srm ON sm.id=srm.menu_id
-			<where>
-				<trim suffixOverrides="and">
-					<if test="roleId != null">srm.role_id=#{roleId} and</if>
-					<choose>
-						<when test="parentId != null">sm.parent_id=#{parentId} and</when>
-						<otherwise>sm.parent_id is null and</otherwise>
-					</choose>
-					<if test="status != null">sm.status=#{status} and</if>
-
-				</trim>
-			</where>
-		    order by sm.create_time asc
+		select
+		sm.id,
+		sm.parent_id,
+		sm.text,
+		sm.url,
+		sm.icon,
+		sm.status
+		from
+		sys_menu sm left join sys_menu parent on sm.parent_id=parent.id
+		join sys_role_menu srm on sm.id=srm.menu_id
+		<where>
+			<trim suffixOverrides="and">
+				<if test="roleId != null">srm.role_id=#{roleId} and </if>
+				<!-- 对于if标签来说，属于单分支，如果需要用到双分支，那么使用choose -->
+				<choose>
+					<when test="parentId != null">sm.parent_id=#{parentId} and </when>
+					<otherwise>sm.parent_id is null and </otherwise>
+				</choose>
+				<if test="status != null">sm.status=#{status} and </if>
+			</trim>
+		</where>
+		order by sm.create_time asc
 	</select>
+
 	<resultMap id="menuMap" type="Menu">
 		<id property="id" javaType="java.lang.Long" column="id"/>
 		<result property="text" javaType="java.lang.String" column="text"/>

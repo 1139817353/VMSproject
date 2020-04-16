@@ -1,5 +1,6 @@
 package cn.ekgc.vms.service;
 
+import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 
@@ -20,4 +21,6 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	VmsPage<User> getUserListByPage(VmsPage<User> vmsPage)throws Exception;
+
+
 }
