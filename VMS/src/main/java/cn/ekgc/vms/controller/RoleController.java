@@ -52,12 +52,16 @@ public class RoleController {
 		return vmsPage;
 	}
 
+	/**
+	 * <b>转发到授权界面</b>
+	 * @param id
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
     @GetMapping(value = "/auth")
-	public String auth(@RequestParam Long id,ModelMap map)throws Exception{
-	    Role role = new Role();
-	    role.setId(id);
-	    String Id = String.valueOf(role.getId());
-	    map.put("id",id);
-		return "role/role_index";
+	public String forwardAuthPage(@RequestParam Long id,ModelMap map)throws Exception{
+	    map.put("roleId",id);
+		return "role/role_auth";
 	}
 }

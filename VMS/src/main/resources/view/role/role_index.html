@@ -3,14 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
-	<link rel="stylesheet" type="text/css" href="/css/adminlte.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap4.min.css">
-	<script type="text/javascript" src="/js/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="/js/dataTables.bootstrap4.min.js"></script>
-	<script type="text/javascript" src="/js/adminlte.min.js"></script>
-	<script type="text/javascript">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/AdminLTE.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/skins/_all-skins.min.css">
+	<script type="application/javascript" src="/js/jquery-3.4.1.min.js"></script>
+	<script type="application/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="application/javascript" src="/js/jquery.dataTables.min.js"></script>
+	<script type="application/javascript" src="/js/adminlte.min.js"></script>
+	<script type="application/javascript">
 		$(function () {
 			$("#mytable").DataTable({
 				// 取消本地分页
@@ -153,23 +155,15 @@
 		}
 	</script>
 </head>
-<body style="padding: 15px;">
+<body>
 <div class="row">
 	<div class="col-md-12">
-		<a href="#" class="btn btn-success">
-			<i class="fa fa-user-plus"></i>
-			添加角色
-		</a>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<table id="mytable" class="table table-hover">
+		<table id="mytable" class="table table-bordered table-hover">
 			<thead>
 			<tr>
 				<th>序号</th>
 				<th>角色名称</th>
-				<th>角色编号</th>
+				<th>角色编码</th>
 				<th>状态</th>
 				<th>操作</th>
 			</tr>

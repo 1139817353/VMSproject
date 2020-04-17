@@ -3,6 +3,7 @@ package cn.ekgc.vms.pojo.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <b>菜单信息实体</b>
@@ -119,5 +120,31 @@ public class Menu implements Serializable {
 
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
+	}
+
+	@Override
+	public boolean equals(Object Obj) {
+		//如果这个对象是空的，那么返回一个false，不勾选
+		if (Obj == null){
+			return false;
+		}
+		//如果这个值等于这个对象，那么返回一个true，勾选
+		if (this == Obj){
+			return true;
+		}
+		//判断Menu是否属于Obj类型
+		//instanceof属于多态,用于比较这两个属不属于一个类型的，如果属于返回true
+		if (Obj instanceof Menu){
+		 //所以强制类型转换
+			Menu menu = (Menu) Obj;
+			return this.getId().equals(menu.getId());
+
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }

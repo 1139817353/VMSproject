@@ -25,9 +25,9 @@ public class UserController extends BaseController {
 	 * @throws Exception
 	 */
 	@GetMapping(value = "/login")
-   public String forwardLoginPage()throws Exception{
-   	return "user/user_login";
-   }
+	public String forwardLoginPage() throws Exception {
+		return "user/user_login";
+	}
 
 	/**
 	 * <b>登录失败后访问地址</b>
@@ -37,7 +37,6 @@ public class UserController extends BaseController {
 	@PostMapping(value = "/login")
 	public String loginError() throws Exception {
 		// 只需要重定向到退出即可
-		System.out.println("错误!");
 		return "redirect:/user/logout";
 	}
 
@@ -47,7 +46,7 @@ public class UserController extends BaseController {
 	 * @throws Exception
 	 */
 	@GetMapping(value = "/index")
-	public String index()throws Exception{
+	public String index() throws Exception {
 		return "user/user_index";
 	}
 
@@ -59,13 +58,13 @@ public class UserController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-    @PostMapping(value = "/page")
-    @ResponseBody
-	public VmsPage<User> getUserListByPage(Integer pageNum, Integer pageSize, int draw)throws Exception{
-       //创建 VmsPage对象
-	    VmsPage<User> vmsPage = new VmsPage<User>(pageNum,pageSize,draw);
-	    //使用service进行分页查询
-	    vmsPage = userService.getUserListByPage(vmsPage);
-        return vmsPage;
+	@PostMapping(value = "/page")
+	@ResponseBody
+	public VmsPage<User> getUserListByPage(Integer pageNum, Integer pageSize, int draw) throws Exception {
+		// 创建 VmsPage 对象
+		VmsPage<User> vmsPage = new VmsPage<User>(pageNum, pageSize, draw);
+		// 使用 Service 进行分页查询
+		vmsPage = userService.getUserListByPage(vmsPage);
+		return vmsPage;
 	}
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ekgc.vms.dao.MenuDao">
-	<select id="findListByQuery" parameterType="java.util.Map" resultMap="menuMap">
+	<sql id="selectsql">
 		select
 		sm.id,
 		sm.parent_id,
@@ -13,6 +13,10 @@
 		from
 		sys_menu sm left join sys_menu parent on sm.parent_id=parent.id
 		join sys_role_menu srm on sm.id=srm.menu_id
+	</sql>
+	
+	<select id="findListByQuery" parameterType="java.util.Map" resultMap="menuMap">
+		<include refid="selectsql"></include>
 		<where>
 			<trim suffixOverrides="and">
 				<if test="roleId != null">srm.role_id=#{roleId} and </if>
@@ -27,6 +31,14 @@
 		order by sm.create_time asc
 	</select>
 
+	<select id="findNodeListByQuery" parameterType="java.util.Map" resultMap="menuMap">
+		<include refid="selectsql"></include>
+		<where>
+			<trim suffixOverrides="and">
+				<if test="roleId != null">srm.role_id=#{roleId} and </if>
+			</trim>
+		</where>
+	</select>
 	<resultMap id="menuMap" type="Menu">
 		<id property="id" javaType="java.lang.Long" column="id"/>
 		<result property="text" javaType="java.lang.String" column="text"/>

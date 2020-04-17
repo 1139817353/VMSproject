@@ -17,4 +17,12 @@ public interface MenuDao {
 	 */
 	List<Menu> findListByQuery(Map<String, Object> query)throws Exception;
 
+	/**
+	 * <b>查询菜单列表</b>
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	List<Menu> findNodeListByQuery(Map<String,Object> paramMap)throws Exception;
+
 }

@@ -24,6 +24,11 @@ spring:
     prefix: classpath:/view/
     suffix: .html
     ### MyBatis  相关配置信息
+    cache: false
+  devtools:
+    restart:
+      enabled: true
+
 mybatis:
   mapper-locations: classpath:/mapper/*.Mapper.xml
   type-aliases-package: cn.ekgc.vms.pojo
