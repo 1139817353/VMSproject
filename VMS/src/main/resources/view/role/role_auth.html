@@ -80,26 +80,27 @@
 			for (var i = 0; i < nodes.length; i++) {
 				ids = nodes[i].id + "-" + ids;
 			}
-			// 获得所有的节点之后，将最后的“-”截掉
-			ids = ids.substring(0, ids.length - 1);
-			// 将此时角色主键和菜单主键异步提交给后台，进行授权操作
+			//将获得所有的节点之后，将最后的节点“-”去掉
+			ids = ids.substring(0,ids.length - 1 );
+			//将此时的角色主键和菜单主键异步交给后端，进行授权
 			$.ajax({
-				"url": "/role/auth",
-				"type": "post",
-				"data": {
-					"roleId": $("#roleId").val(),
+				"url":"/role/auth",
+				"type":"post",
+				"data":{
+					"roleId":$("#roleId").val(),
 					"ids": ids
 				},
-				"dataType": "json",
-				"success": function (data) {
-					if (data) {
-						alert("授权成功");
-					} else {
-						alert("授权失败")
-					}
-					// 关闭模态框
+				"dataType":"json",
+				"success":function (data) {
+                    if(data){
+                    	alert("授权成功");
+                    }else {
+                    	alert("授权失败");
+                    }
+                  //关闭模态框
+
 				}
-			});
+			})
 		}
 	</script>
 </head>

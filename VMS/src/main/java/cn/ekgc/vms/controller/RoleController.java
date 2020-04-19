@@ -1,6 +1,7 @@
 package cn.ekgc.vms.controller;
 
 import cn.ekgc.vms.pojo.entity.Role;
+import cn.ekgc.vms.pojo.entity.RoleMenu;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.RoleService;
 import cn.ekgc.vms.service.UserService;
@@ -28,13 +29,12 @@ public class RoleController {
 	 * @throws Exception
 	 */
 	@GetMapping(value = "/index")
-	public String index()throws Exception{
-		System.out.println("进入角色控制层!");
+	public String index() throws Exception {
 		return "role/role_index";
 	}
 
 	/**
-	 * <b>分页查询</b>
+	 * <b>分页查询角色信息</b>
 	 * @param pageNum
 	 * @param pageSize
 	 * @param draw
@@ -43,25 +43,40 @@ public class RoleController {
 	 */
 	@PostMapping(value = "/page")
 	@ResponseBody
-	public VmsPage<Role> getRoleVmsPage(Integer pageNum,Integer pageSize,Integer draw)throws Exception{
-		System.out.println("进入角色分页控制层!");
-     //创建VmsPage对象
-		VmsPage<Role> vmsPage = new VmsPage<Role>(pageNum,pageSize,draw);
-		//业务层进行分页查询
+	public VmsPage<Role> getRoleVmsPage(Integer pageNum, Integer pageSize, Integer draw) throws Exception {
+		// 创建VmsPage对象
+		VmsPage<Role> vmsPage = new VmsPage<>(pageNum, pageSize, draw);
+		// 业务层进行分页查询
 		vmsPage = roleService.getRoleVmsPage(vmsPage);
+
 		return vmsPage;
 	}
 
 	/**
-	 * <b>转发到授权界面</b>
+	 * <b>转发到授权页面</b>
 	 * @param id
 	 * @param map
 	 * @return
 	 * @throws Exception
 	 */
-    @GetMapping(value = "/auth")
-	public String forwardAuthPage(@RequestParam Long id,ModelMap map)throws Exception{
-	    map.put("roleId",id);
+	@GetMapping(value = "/auth")
+	public String forwardAuthPage(Long id, ModelMap map) throws Exception {
+		// 将角色主键绑定到 ModelMap 中
+		map.put("roleId", id);
 		return "role/role_auth";
+	}
+
+	/**
+	 * <b>将角色数据进行更新</b>
+	 * @param roleId
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/auth")
+	@ResponseBody
+	public boolean forAuth(Long roleId)throws Exception{
+		RoleMenu roleMenu = new RoleMenu();
+		roleMenu.setRoleId(roleId);
+		return roleService.forInsertAuth(roleMenu);
 	}
 }

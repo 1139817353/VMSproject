@@ -18,6 +18,8 @@
 			 <trim suffixOverrides="and">
 				 <if test="id != null">sr.id=#{id} and </if>
 				 <if test="name !=null">sr.name like concat('%',#{name},'%') and </if>
+				 <if test="code != null">sr.code=#{code} and </if>
+				 <if test="status != null">sr.status=#{status} and </if>
 			 </trim>
 		 </where>
 		 order by sr.create_time asc
@@ -25,14 +27,14 @@
 
 	<insert id="save" parameterType="Role">
 		insert into sys_role(
-		<trim suffixOverrides=",">
+		<trim suffixOverrides="and">
 			<if test="id != null">id,</if>
 			<if test="name !=null">name,</if>
 			<if test="code != null">code,</if>
 			<if test="status != null">status,</if>
 		</trim>
 		)values (
-		<trim suffixOverrides=",">
+		<trim suffixOverrides="and">
 			<if test="id != null">#{id},</if>
 			<if test="name != null">#{name},</if>
 			<if test="code != null">#{code},</if>
@@ -56,6 +58,7 @@
 			</trim>
 		</where>
 	</update>
+
 
 	<resultMap id="roleMap" type="Role">
 		<id property="id" javaType="java.lang.Long" column="id"/>

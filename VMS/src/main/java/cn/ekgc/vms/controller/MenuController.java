@@ -28,6 +28,7 @@ public class MenuController extends BaseController {
 	@PostMapping(value = "/auth")
 	@ResponseBody
 	public List<Node> getNodeListForAuth(Long roleId)throws Exception{
+		System.out.println("控制层Id是:"+roleId);
       return menuService.getNodeListForAuth(roleId);
   }
 }

@@ -58,6 +58,7 @@ public class MenuServiceimpl implements MenuService {
 		List<Menu> menuList = menuDao.findNodeListByQuery(null);
 		//根据角色查询角色已有的权限
 		Map<String,Object> paramMap = new HashMap<String,Object>();
+		//roleId是角色Id（超级管理员、管理员）
 		paramMap.put("roleId", roleId);
 		List<Menu> roleMenuList = menuDao.findNodeListByQuery(paramMap);
 
@@ -68,7 +69,7 @@ public class MenuServiceimpl implements MenuService {
 				Node node = new Node();
 				node.setId(menu.getId());
 				//设置pId(父Id)
-				node.setId((menu.getParent() == null)? 0 : menu.getParent().getId());
+				node.setpId((menu.getParent() == null)? 0 : menu.getParent().getId());
                 //name
 				node.setName(menu.getText());
 				//open
@@ -78,7 +79,7 @@ public class MenuServiceimpl implements MenuService {
 					node.setOpen(true);
 				}
 				//判断是否选中
-				//判断roleMenuList是否包含menu菜单中的选项，如果包含就选中
+				//判断roleMenuList(管理人员)是否包含menu菜单中的选项，如果包含就选中
 				if (roleMenuList.contains(menu)){
 					node.setChecked(true);
 				}

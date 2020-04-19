@@ -1,6 +1,7 @@
 package cn.ekgc.vms.dao;
 
 import cn.ekgc.vms.pojo.entity.Role;
+import cn.ekgc.vms.pojo.entity.RoleMenu;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
@@ -31,4 +32,12 @@ public interface RoleDao {
 	 * @throws Exception
 	 */
 	int update(Role entity)throws Exception;
+
+	/**
+	 * <b>进行数据存储</b>
+	 * @param roleId
+	 * @return
+	 * @throws Exception
+	 */
+	boolean InsertIntoRoleId(RoleMenu roleId)throws Exception;
 }
