@@ -1,11 +1,9 @@
 package cn.ekgc.vms.service.impl;
 
 import cn.ekgc.vms.dao.UserDao;
-import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.UserService;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +53,20 @@ public class UserServiceimpl implements UserService {
 		return vmsPage;
 
 
+	}
+
+	/**
+	 * <b>保存信息</b>
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean save(User user) throws Exception {
+		int index = userDao.save(user);
+		if (index > 0){
+			return true;
+		}
+		return false;
 	}
 
 

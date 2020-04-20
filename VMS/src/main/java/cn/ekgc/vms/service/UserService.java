@@ -22,5 +22,11 @@ public interface UserService {
 	 */
 	VmsPage<User> getUserListByPage(VmsPage<User> vmsPage)throws Exception;
 
-
+	/**
+	 * <b>保存信息</b>
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	boolean save(User user)throws Exception;
 }

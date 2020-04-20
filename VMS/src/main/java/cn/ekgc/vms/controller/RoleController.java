@@ -1,7 +1,6 @@
 package cn.ekgc.vms.controller;
 
 import cn.ekgc.vms.pojo.entity.Role;
-import cn.ekgc.vms.pojo.entity.RoleMenu;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.RoleService;
 import cn.ekgc.vms.service.UserService;
@@ -74,9 +73,20 @@ public class RoleController {
 	 */
 	@PostMapping(value = "/auth")
 	@ResponseBody
-	public boolean forAuth(Long roleId)throws Exception{
-		RoleMenu roleMenu = new RoleMenu();
-		roleMenu.setRoleId(roleId);
-		return roleService.forInsertAuth(roleMenu);
+	public boolean forAuth(Long roleId,String ids)throws Exception{
+		// 判断此时的授权信息是否存在
+		if (ids != null && !"".equals(ids.trim())) {
+			// 使用“-”进行字符串切割
+			String[] strs = ids.split("-");
+			// 将对应的String[] 变成Long[]
+			Long[] menuIds = new Long[strs.length];
+			for (int i = 0; i < strs.length; i++) {
+				menuIds[i] = Long.parseLong(strs[i]);
+			}
+
+			// 进行保存
+			return roleService.auth(roleId, menuIds);
+		}
+		return false;
 	}
 }

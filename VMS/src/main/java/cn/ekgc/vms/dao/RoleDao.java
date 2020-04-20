@@ -1,11 +1,10 @@
 package cn.ekgc.vms.dao;
 
 import cn.ekgc.vms.pojo.entity.Role;
-import cn.ekgc.vms.pojo.entity.RoleMenu;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RoleDao {
@@ -33,11 +32,16 @@ public interface RoleDao {
 	 */
 	int update(Role entity)throws Exception;
 
+
+
 	/**
-	 * <b>进行数据存储</b>
-	 * @param roleId
+	 * <b>修改信息</b>
+	 * @param
 	 * @return
 	 * @throws Exception
 	 */
-	boolean InsertIntoRoleId(RoleMenu roleId)throws Exception;
+	int deleteForAuth(Long roleId) throws Exception;
+
+	int saveAuth(Map<String, Object> paramMap) throws Exception;
+
 }

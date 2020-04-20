@@ -1,9 +1,7 @@
 package cn.ekgc.vms.service.impl;
 
 import cn.ekgc.vms.dao.RoleDao;
-import cn.ekgc.vms.pojo.entity.Menu;
 import cn.ekgc.vms.pojo.entity.Role;
-import cn.ekgc.vms.pojo.entity.RoleMenu;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.RoleService;
 import com.github.pagehelper.PageHelper;
@@ -13,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +21,7 @@ import java.util.Map;
 public class RoleServiceimpl implements RoleService {
 	@Autowired
 	private RoleDao roleDao;
-	@Autowired
-	private HttpServletRequest request;
+
 	/**
 	 * <b>进行分页查询</b>
 	 * @param vmsPage
@@ -40,17 +38,40 @@ public class RoleServiceimpl implements RoleService {
 
 	/**
 	 * <b>进行数据存储</b>
-	 * @param roleMenu
+	 * @param roleId,roleids
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean forInsertAuth(RoleMenu roleMenu) throws Exception {
-		Menu menu = new Menu();
-		menu.setText(request.getParameter("ids"));
-		boolean index = roleDao.InsertIntoRoleId(roleMenu);
-		if (index){
+	public boolean auth(Long roleId, Long[] menuIds) throws Exception {
+		// 根据角色主键清空现有权限
+		if (roleDao.deleteForAuth(roleId) >= 0) {
+			// 循环授权
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			for (Long menuId : menuIds) {
+				// 保存权限
+				paramMap.put("roleId", roleId);
+				paramMap.put("menuId", menuId);
+
+				roleDao.saveAuth(paramMap);
+			}
 			return true;
 		}
+
 		return false;
+	}
+
+
+	/**
+	 * <b>转发至保存页面</b>
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Role> getRoleListByQuery(Role query) throws Exception {
+		List<Role> list = roleDao.findListByQuery(query);
+		if (list != null && list.size() > 0 ){
+			return list;
+		}
+		return new ArrayList<Role>();
 	}
 }

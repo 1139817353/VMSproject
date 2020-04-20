@@ -1,8 +1,9 @@
 package cn.ekgc.vms.service;
 
 import cn.ekgc.vms.pojo.entity.Role;
-import cn.ekgc.vms.pojo.entity.RoleMenu;
 import cn.ekgc.vms.pojo.vo.VmsPage;
+
+import java.util.List;
 
 public interface RoleService {
 	/**
@@ -19,5 +20,13 @@ public interface RoleService {
 	 * @return
 	 * @throws Exception
 	 */
-	boolean forInsertAuth(RoleMenu roleId)throws Exception;
+	boolean auth(Long roleId, Long[] menuIds) throws Exception;
+
+	/**
+	 * <b>转发至保存页面</b>
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
+	List<Role> getRoleListByQuery(Role query)throws Exception;
 }

@@ -98,7 +98,9 @@
                     	alert("授权失败");
                     }
                   //关闭模态框
-
+					parent.closeModel();
+                    //刷新列表
+					parent.openFrame("/role/index","角色管理","系统管理","");
 				}
 			})
 		}
