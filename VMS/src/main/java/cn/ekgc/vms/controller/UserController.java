@@ -95,7 +95,7 @@ public class UserController extends BaseController {
 
 	/**
 	 * <b>保存信息</b>
-	 * @param user
+	 * @param
 	 * @param roleId
 	 * @return
 	 * @throws Exception
@@ -104,14 +104,20 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public boolean save(User user,Long roleId)throws Exception{
 		//检查手机号码和密码
-		if (user.getCellphone() != null && !"".equals(user.getCellphone().trim()) && user.getPassword() != null && !"".equals(user.getPassword().trim()))
-	   //校验必须存在角色
+		if (user.getCellphone() != null && !"".equals(user.getCellphone().trim()) && user.getPassword() != null && !"".equals(user.getPassword().trim())){
+			System.out.println("进入cellphone校验层");
+			//校验必须存在角色
 			if (roleId != null &&roleId != 0){
+				System.out.println("进入roleId校验层");
 				user.setPassword(MD5Util.encrypt(user.getPassword()));
 				//设定状态为启用状态
 				user.setStatus(StatusEnum.STATUS_ENABLE.getCode());
-				return userService.save(user);
+				userService.save(user);
+				return true;
+
 			}
+		}
+
 		return false;
 	}
 
