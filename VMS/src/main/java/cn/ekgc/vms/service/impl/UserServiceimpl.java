@@ -1,6 +1,7 @@
 package cn.ekgc.vms.service.impl;
 
 import cn.ekgc.vms.dao.UserDao;
+import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("userService")
@@ -67,6 +69,20 @@ public class UserServiceimpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * <b>查询角色信息</b>
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public List<User> getRoleListByQuery(User user) throws Exception {
+		List<User> userList = userDao.findListByQuery(user);
+		if (userList != null){
+			return userList;
+		}
+		return new ArrayList<User>();
 	}
 
 

@@ -4,6 +4,8 @@ import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 
+import java.util.List;
+
 
 public interface UserService {
 	/**
@@ -29,4 +31,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	boolean save(User user)throws Exception;
+
+	/**
+	 * <b>查询角色信息</b>
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<User> getRoleListByQuery(User user)throws Exception;
 }

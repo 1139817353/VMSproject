@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
@@ -9,17 +9,64 @@
 	<script type="application/javascript" src="/js/bootstrap.min.js"></script>
 	<script type="application/javascript" src="/js/jquery.validate.min.js"></script>
 	<script type="application/javascript">
- 		$(function () {
+		$(function(){
+			// 进行异步请求，获得对应的节点信息
+			$.ajax({
+				"url": "/user/roleId",
+				"type": "post",
+				"data": {
+					"roleId": $("#roleId").val()
+				},
+				"dataType": "json",
+				success: function (data) {
+					var options ="";
+					for (var index = 0;i < data.length;i++){
+						var role = data[i];
+						options = options + "<option value='"+ role.id +"'>" + role.name +"</option>";
+						$("#roleId").html(options);
+						alert(options);
+					}
+				}
+			});
+		});
+
+
+		$(function () {
 		    jQuery.validator.addMethod("idCard", function(value, element) {
 			    var idCardReg = /^[1-9]{17}[0-9]|X|x$/;
 			    return idCardReg.test(value);
 		    }, "");
+		    jQuery.validator.addMethod("email", function(value, element) {
+			    var email = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/;
+			    return email.test(value);
+		    }, "");
+			jQuery.validator.addMethod("gender", function(value, element) {
+				var email = "";
+				if (gender == 1){
+					return "男";
+				}else if (gender == 0){
+					return "女";
+				}
+			}, "");
 			$("#myform").validate({
 				//阻止提交按钮进行同步提交，从而执行相应的js函数
 				submitHandler:function(form){
 					alert("提交事件!");
 				    form.submit();
 					// 进行异步提交
+						$.ajax({
+							url: "/user/save",
+							type: "post",
+							"data":$("myform").serialize(),
+							"dataType":"json",
+							"success":function (data) {
+                              if (data){
+                              	alert("保存成功");
+                              }else {
+                              	alert("保存失败");
+                              }
+							}
+						})
 				},
 				//校验规则
 				rules:{
@@ -44,17 +91,15 @@
 					"passwordConfirm":{
 						//两次密码是否一致
 						"equalTo":"#password"   //填写的是Id
-
-					},
-					"roleId":{
-						"digits":true,
-						"remote": {
-							"url": "/user/save",
-							"type": "post"
-						}
 					},
 					"idCard":{
 						"idCard":true
+					},
+					"email":{
+						"email":"#email"
+					},
+					"gender":{
+						"gender":"#gender"
 					}
 				},
 				//错误提示信息
@@ -76,11 +121,11 @@
 						"equalTo":"密码不一致!"   //填写的是Id
 
 					},
-					"roleId":{
-						"digits":"角色编号错误!"
-					},
 					"idCard":{
 						"idCard":"请填写正确的身份证号码!"
+					},
+					"email":{
+						"email":"邮箱格式错误！"
 					}
 				}
 			})
@@ -140,13 +185,24 @@
 					  </tr>
 					  <tr>
 						  <td>
-							  <i class="fa fa-user"></i>&nbsp;角色编号:
+							  &nbsp;<i class="fa fa-male"></i>性别:
 						  </td>
 						  <td>
-							  <input type="text" id="roleId" name="roleId" class="form-control" style="width: 300px;"/>
+							  <input  id="gender" type="radio" name="gender"/>1
+							  <input  name="gender" type="radio"/>0
 						  </td>
 						  <td style="padding-left: 15px;">
-							  <label class="error" for="roleId" style="color: red"></label>
+							  <label class="error" for="gender" style="color: red"></label>
+						  </td>
+					  </tr>
+					  <tr>
+						  <td>
+							  <i class="fa fa-user"></i>&nbsp;角色信息:
+						  </td>
+						  <td>
+                               <select id="roleId" th:value="${roleId}">
+
+                               </select>
 						  </td>
 					  </tr>
 					  <tr>
@@ -161,8 +217,19 @@
 						  </td>
 					  </tr>
 					  <tr>
+						  <td>
+							  <i class="fa-envelope-square"></i>&nbsp;Email:
+						  </td>
+						  <td>
+							  <input type="text" id="email" name="email" class="form-control" style="width: 300px;"/>
+						  </td>
+						  <td style="padding-left: 15px;">
+							  <label class="error" for="email" style="color: red"></label>
+						  </td>
+					  </tr>
+					  <tr>
 						  <td colspan="2" align="right">
-							  <button type="submit" class="btn btn-success">
+							  <button type="submit" class="btn btn-success" onclick="auth()">
 								  <i class="fa fa-save"></i>&nbsp;保存
 							  </button>
 						  </td>

@@ -8,16 +8,12 @@ import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.RoleService;
 import cn.ekgc.vms.service.UserService;
 import cn.ekgc.vms.util.MD5Util;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Savepoint;
+import java.util.List;
 
 /**
  * <b>系统用户控制层</b>
@@ -102,9 +98,9 @@ public class UserController extends BaseController {
 	 */
 	@PostMapping(value = "/save")
 	@ResponseBody
-	public boolean save(User user,Long roleId)throws Exception{
+	public boolean save( User user, Long roleId)throws Exception{
 		//检查手机号码和密码
-		if (user.getCellphone() != null && !"".equals(user.getCellphone().trim()) && user.getPassword() != null && !"".equals(user.getPassword().trim())){
+		if (user.getCellphone() != null && !"".equals(user.getCellphone().trim()) && user.getPassword() != null && !"".equals(user.getPassword())){
 			System.out.println("进入cellphone校验层");
 			//校验必须存在角色
 			if (roleId != null &&roleId != 0){
@@ -120,5 +116,23 @@ public class UserController extends BaseController {
 
 		return false;
 	}
+
+	/**
+	 * <b>查询角色信息列表</b>
+	 * @param roleId
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/roleId")
+	@ResponseBody
+	public List<User> getRoleList(Long roleId)throws Exception{
+		Role role = new Role();
+		role.setId(roleId);
+		User user = new User();
+		user.setRole(role);
+		List<User> roleList = userService.getRoleListByQuery(user);
+		return roleList;
+	}
+
 
 }
