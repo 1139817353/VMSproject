@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/AdminLTE.min.css">
+		<script type="application/javascript" src="/js/jquery-3.4.1.min.js"></script>
+		<script type="application/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="application/javascript">
+			function auth() {
+				$.ajax({
+					"url": "/role/update",
+					"type": "post",
+					"data": {
+						"id": $("#id").val(),
+						"cellphone":$("#cellphone").val(),
+						"password":$("#password").val()
+					},
+					"dataType": "json",
+					"success": function (data) {
+						if (data) {
+							alert("修改成功")
+						} else {
+							alert("修改失败")
+						}
+					}
+				})
+			}
+			function auth() {
+				parent.openModal("修改密码","/role/update",800,600);
+			}
+
+		</script>
+	</head>
+	<body>
+	<form action="/role/password" method="post">
+		<div class="form-group has-feedback">
+			<input type="hidden" id="id" th:value="${id}"/>
+			<input type="text" name="cellphone" class="form-control" placeholder="请输入您的手机号码">
+			<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+		</div>
+		<div class="form-group has-feedback">
+			<input id="password" type="password" name="password" class="form-control" placeholder="请输入您的密码">
+			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+		</div>
+		<div class="row">
+			<div class="col-xs-8"></div>
+			<div class="col-xs-4">
+				<button type="submit" class="btn btn-primary btn-block btn-flat" onclick="auth();">确认</button>
+			</div>
+			</div>
+	</form>
+
+	</body>
+</html>

@@ -7,7 +7,6 @@
   <groupId>cn.ekgc.vms</groupId>
   <artifactId>VMS</artifactId>
   <version>1.0.0</version>
-
   <!-- 使用Spring Boot Starter Parent 作为项目父级依赖关系 -->
   <parent>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -116,7 +115,20 @@
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <!--配置 Spring Boot Maven 打包插件-->
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!--配置 Spring Boot Maven 打包插件-->
+
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>

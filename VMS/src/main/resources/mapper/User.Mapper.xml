@@ -26,6 +26,7 @@
 			   <if test="id != null">su.id=#{id} and </if>
 			   <if test="username != null">su.username like concat('%', #{username}, '%') and </if>
 			   <if test="cellphone != null">su.cellphone=#{cellphone} and </if>
+			   <if test="password != null">su.password=#{password} and </if>
 			   <if test="status != null">su.status=#{status} and </if>
 		   </trim>
 	   </where>

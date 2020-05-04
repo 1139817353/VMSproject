@@ -1,5 +1,7 @@
 package cn.ekgc.vms.pojo.entity;
 
+import org.apache.poi.ss.usermodel.Cell;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -137,4 +139,6 @@ public class User  implements Serializable {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+
+
 }

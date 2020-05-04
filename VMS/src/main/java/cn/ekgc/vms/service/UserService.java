@@ -39,4 +39,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	List<User> getRoleListByQuery(User user)throws Exception;
+
+	/**
+	 * <b>更改用户信息</b>
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
+	boolean update(User query)throws Exception;
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/AdminLTE.min.css">
+		<script type="application/javascript" src="/js/jquery-3.4.1.min.js"></script>
+		<script type="application/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="application/javascript">
+			function auth() {
+				$.ajax({
+					"url":"/role/update",
+					"type":"post",
+					"data":{
+						"password":$("#password").val(),
+						"id":$("id").val()
+					},
+					"dataType":"json",
+					"success":function (data) {
+						if(data){
+							function openAuthModal(id) {
+								var url = "/role/update?id=" + id;
+								parent.openModal("更改密码", url, 600, 800);
+							}
+						}else {
+							alert("授权失败");
+						}
+				}
+
+				})
+
+			}
+		</script>
+	</head>
+	<body>
+	<form action="/role/update" method="post">
+		<div class="form-group has-feedback">
+			<input type="hidden" id="id" th:value="${id}"/>
+			<input id="password" type="password" name="password" class="form-control" placeholder="输入修改密码">
+			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+		</div>
+		<div class="row">
+			<div class="col-xs-8"></div>
+			<div class="col-xs-4">
+				<button type="submit" class="btn btn-primary btn-block btn-flat" onclick="auth();">进行修改</button>
+			</div>
+		</div>
+	</form>
+	</body>
+</html>

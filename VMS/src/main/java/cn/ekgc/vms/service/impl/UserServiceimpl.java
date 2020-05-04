@@ -1,7 +1,6 @@
 package cn.ekgc.vms.service.impl;
 
 import cn.ekgc.vms.dao.UserDao;
-import cn.ekgc.vms.pojo.entity.Role;
 import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 import cn.ekgc.vms.service.UserService;
@@ -83,6 +82,22 @@ public class UserServiceimpl implements UserService {
 			return userList;
 		}
 		return new ArrayList<User>();
+	}
+
+	/**
+	 * <b>更改用户信息</b>
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean update(User query) throws Exception {
+		int update = userDao.update(query);
+		if (update > 0){
+			System.out.println("id是:"+query.getId());
+			System.out.println(query.getPassword());
+			return true;
+		}
+		return false;
 	}
 
 

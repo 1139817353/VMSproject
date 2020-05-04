@@ -31,6 +31,6 @@ public class MD5Util {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(encrypt("like"));
+		System.out.println(encrypt("yize"));
 	}
 }
