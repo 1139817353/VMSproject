@@ -20,11 +20,11 @@
 				"dataType": "json",
 				success: function (data) {
 					var options ="";
-					for (var index = 0;i < data.length;i++){
+					for (var i = 0;i < data.length;i++){
 						var role = data[i];
 						options = options + "<option value='"+ role.id +"'>" + role.name +"</option>";
 						$("#roleId").html(options);
-						alert(options);
+
 					}
 				}
 			});
@@ -57,7 +57,7 @@
 						$.ajax({
 							url: "/user/save",
 							type: "post",
-							"data":$("myform").serialize(),
+							"data":$("#myform").serialize(),
 							"dataType":"json",
 							"success":function (data) {
                               if (data){

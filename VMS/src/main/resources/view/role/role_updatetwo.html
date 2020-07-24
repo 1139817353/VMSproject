@@ -15,15 +15,12 @@
 					"type":"post",
 					"data":{
 						"password":$("#password").val(),
-						"id":$("id").val()
+						"id":$("#id").val()
 					},
 					"dataType":"json",
 					"success":function (data) {
-						if(data){
-							function openAuthModal(id) {
-								var url = "/role/update?id=" + id;
-								parent.openModal("更改密码", url, 600, 800);
-							}
+						if(data==true){
+							alert("授权成功");
 						}else {
 							alert("授权失败");
 						}
@@ -44,7 +41,7 @@
 		<div class="row">
 			<div class="col-xs-8"></div>
 			<div class="col-xs-4">
-				<button type="submit" class="btn btn-primary btn-block btn-flat" onclick="auth();">进行修改</button>
+				<button type="button" class="btn btn-primary btn-block btn-flat" onclick="auth();">进行修改</button>
 			</div>
 		</div>
 	</form>

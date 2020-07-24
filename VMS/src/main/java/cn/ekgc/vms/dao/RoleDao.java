@@ -1,6 +1,7 @@
 package cn.ekgc.vms.dao;
 
 import cn.ekgc.vms.pojo.entity.Role;
+import cn.ekgc.vms.pojo.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,5 +44,6 @@ public interface RoleDao {
 	int deleteForAuth(Long roleId) throws Exception;
 
 	int saveAuth(Map<String, Object> paramMap) throws Exception;
+
 
 }

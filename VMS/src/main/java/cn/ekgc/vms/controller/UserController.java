@@ -133,6 +133,38 @@ public class UserController extends BaseController {
 		List<User> roleList = userService.getRoleListByQuery(user);
 		return roleList;
 	}
+	/**
+	 * <b>驾驶员档案</b>
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/car")
+	public String Car(Long id, ModelMap map)throws Exception{
+		map.put("id", id);
+		return "user/user_car";
+	}
 
+	/**
+	 * <b>驾驶员档案</b>
+	 * @param cellphone
+	 * @param password
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/car")
+	@ResponseBody
+	public List<User> getListUserCar(String cellphone,String password)throws Exception{
+
+		User query = new User();
+		query.setCellphone(cellphone);
+		query.setPassword(password);
+		List<User> userList = userService.getRoleListByQuery(query);
+		System.out.println("驾驶档案:"+userList);
+		if (userList != null){
+			return userList;
+		}
+		return null;
+	}
 
 }

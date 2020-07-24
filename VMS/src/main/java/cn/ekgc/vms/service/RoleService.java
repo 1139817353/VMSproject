@@ -1,6 +1,7 @@
 package cn.ekgc.vms.service;
 
 import cn.ekgc.vms.pojo.entity.Role;
+import cn.ekgc.vms.pojo.entity.User;
 import cn.ekgc.vms.pojo.vo.VmsPage;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface RoleService {
 	 * @throws Exception
 	 */
 	List<Role> getRoleListByQuery(Role query)throws Exception;
+
+
 }

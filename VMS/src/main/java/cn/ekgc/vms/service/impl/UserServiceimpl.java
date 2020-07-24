@@ -92,6 +92,7 @@ public class UserServiceimpl implements UserService {
 	 */
 	public boolean update(User query) throws Exception {
 		int update = userDao.update(query);
+		System.out.println("更改结果");
 		if (update > 0){
 			System.out.println("id是:"+query.getId());
 			System.out.println(query.getPassword());

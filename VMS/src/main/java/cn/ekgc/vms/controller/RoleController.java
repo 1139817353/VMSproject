@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,7 +124,7 @@ public class RoleController {
 	 */
 	@PostMapping(value = "/password")
 	@ResponseBody
-	public String getSeletPassword(Long id,String cellphone, String password) throws Exception {
+	public List<User> getSeletPassword(Long id,String cellphone, String password) throws Exception {
 		if (cellphone != null && password != null) {
 			User query = new User();
 			query.setId(id);
@@ -134,11 +135,11 @@ public class RoleController {
 				if (query.getPassword().equals(MD5Util.encrypt(password))){
 					System.out.println("查询id是"+query.getId());
 					System.out.println(userList.get(0));
-					return "进入修改模式";
+					return userList;
 				}
 			}
 		}
-		return "信息错误";
+		return new ArrayList<User>();
 
 	}
 
@@ -150,6 +151,7 @@ public class RoleController {
 		System.out.println(map);
 		return "role/role_updatetwo";
 	}
+
 	@PostMapping(value = "/update")
 	@ResponseBody
 	public boolean update(Long id,String password)throws Exception{
@@ -162,4 +164,6 @@ public class RoleController {
 		}
 		return false;
 	}
+
+
 }
