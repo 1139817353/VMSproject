@@ -1,7 +1,6 @@
 package cn.ekgc.vms.dao;
 
 import cn.ekgc.vms.pojo.entity.Menu;
-import cn.ekgc.vms.pojo.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
